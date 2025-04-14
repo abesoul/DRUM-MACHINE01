@@ -82,3 +82,44 @@ select {
 .loop-toggle input[type="checkbox"] {
   margin-right: 0.5rem;
 }
+
+#spectrum-container {
+  margin-top: 2rem;
+}
+
+canvas {
+  width: 100%;
+  height: 150px;
+  background: #111;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #0ff;
+}
+
+.trim-controls {
+  margin-top: 1rem;
+}
+
+.trim-controls input {
+  width: 70px;
+  margin: 0 10px;
+  background-color: #1f1f1f;
+  color: #fff;
+  border: 1px solid #00f7ff;
+}
+
+.effects {
+  margin-top: 1rem;
+  color: #00f7ff;
+}
+
+.effects label {
+  margin-right: 10px;
+}
+
+.effects input {
+  width: 150px;
+  margin-top: 10px;
+  background-color: #1f1f1f;
+  color: #fff;
+  border: 1px solid #00f7ff;
+}
