@@ -60,4 +60,31 @@ uploadInput.addEventListener("change", function () {
   } else {
     alert("Select a key and upload a file.");
   }
+  const loopToggle = document.getElementById("loop-toggle-checkbox");
+
+function createAudio(key, src) {
+  const audio = new Audio(src);
+  audio.loop = loopToggle.checked; // Default loop state
+  audioElements[key] = audio;
+}
+
+// Update loop state for existing audios when toggled
+loopToggle.addEventListener("change", () => {
+  const isLooping = loopToggle.checked;
+  Object.values(audioElements).forEach(audio => {
+    audio.loop = isLooping;
+  });
+});
+
+function playSound(key) {
+  const sound = audioElements[key];
+  if (sound) {
+    sound.pause();        // Stop if already playing
+    sound.currentTime = 0;
+    sound.loop = loopToggle.checked; // Use current toggle state
+    sound.play();
+    display.textContent = `Playing: ${key} ${sound.loop ? '(Looping)' : ''}`;
+  }
+}
+
 });
