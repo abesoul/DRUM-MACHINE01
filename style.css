@@ -60,16 +60,6 @@ body {
   display: inline-block;
 }
 
-.loop-toggle {
-  margin-top: 1rem;
-  font-size: 1rem;
-  color: #00f7ff;
-}
-
-.loop-toggle input[type="checkbox"] {
-  margin-right: 0.5rem;
-}
-
 input[type='file'] {
   display: none;
 }
@@ -81,4 +71,14 @@ select {
   background-color: #1f1f1f;
   color: #fff;
   border: 1px solid #00f7ff;
+}
+
+.loop-toggle {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #00f7ff;
+}
+
+.loop-toggle input[type="checkbox"] {
+  margin-right: 0.5rem;
 }
