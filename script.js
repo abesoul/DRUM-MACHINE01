@@ -2,6 +2,7 @@ const display = document.getElementById("display-text");
 const pads = document.querySelectorAll(".drum-pad");
 const uploadInput = document.getElementById("file-upload");
 const assignKey = document.getElementById("assign-key");
+const loopToggle = document.getElementById("loop-toggle-checkbox");
 
 const sounds = {
   Q: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
@@ -19,56 +20,11 @@ const audioElements = {};
 
 function createAudio(key, src) {
   const audio = new Audio(src);
-  audioElements[key] = audio;
-}
-
-for (const key in sounds) {
-  createAudio(key, sounds[key]);
-}
-
-function playSound(key) {
-  const sound = audioElements[key];
-  if (sound) {
-    sound.currentTime = 0;
-    sound.play();
-    display.textContent = `Playing: ${key}`;
-  }
-}
-
-pads.forEach(pad => {
-  pad.addEventListener("click", () => {
-    const key = pad.dataset.key;
-    playSound(key);
-  });
-});
-
-document.addEventListener("keydown", e => {
-  const key = e.key.toUpperCase();
-  if (audioElements[key]) {
-    playSound(key);
-  }
-});
-
-uploadInput.addEventListener("change", function () {
-  const file = this.files[0];
-  const selectedKey = assignKey.value;
-
-  if (file && selectedKey) {
-    const url = URL.createObjectURL(file);
-    createAudio(selectedKey, url);
-    display.textContent = `Sample assigned to ${selectedKey}`;
-  } else {
-    alert("Select a key and upload a file.");
-  }
-  const loopToggle = document.getElementById("loop-toggle-checkbox");
-
-function createAudio(key, src) {
-  const audio = new Audio(src);
   audio.loop = loopToggle.checked; // Default loop state
   audioElements[key] = audio;
 }
 
-// Update loop state for existing audios when toggled
+// Loop state update for existing audios when toggled
 loopToggle.addEventListener("change", () => {
   const isLooping = loopToggle.checked;
   Object.values(audioElements).forEach(audio => {
@@ -87,4 +43,37 @@ function playSound(key) {
   }
 }
 
+// Create default audio elements for all keys
+for (const key in sounds) {
+  createAudio(key, sounds[key]);
+}
+
+// Trigger sound on pad click
+pads.forEach(pad => {
+  pad.addEventListener("click", () => {
+    const key = pad.dataset.key;
+    playSound(key);
+  });
+});
+
+// Trigger sound on key press
+document.addEventListener("keydown", e => {
+  const key = e.key.toUpperCase();
+  if (audioElements[key]) {
+    playSound(key);
+  }
+});
+
+// Handle file upload and assign it to a key
+uploadInput.addEventListener("change", function () {
+  const file = this.files[0];
+  const selectedKey = assignKey.value;
+
+  if (file && selectedKey) {
+    const url = URL.createObjectURL(file);
+    createAudio(selectedKey, url);
+    display.textContent = `Sample assigned to ${selectedKey}`;
+  } else {
+    alert("Select a key and upload a file.");
+  }
 });
